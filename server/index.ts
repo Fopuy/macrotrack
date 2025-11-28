@@ -1,9 +1,9 @@
 import express from "express";
 const app = express();
 
-app.get("/",(req, res)=>{
-    res.send("");
-})
+import indexRouter from './routers/indexRouter.js'
+
+app.get("/", indexRouter)
 
 const PORT = process.env.PORT;
 app.listen((PORT||3000), () => {
