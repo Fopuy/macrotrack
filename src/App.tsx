@@ -1,6 +1,16 @@
+import {useState} from 'react'
+
 export function App (){
-  const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+  const [test, setTest]=useState('');
+
+  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const res = await fetch('http://localhost:3000/api/', {
+      method: "GET",
+    });
+    const data = await res.json();
+    setTest(JSON.stringify(data, null, 2));
+
   }
   return (
     <>
@@ -18,20 +28,21 @@ export function App (){
           </label>
           <label htmlFor = "protein">
             Protein:
-            <input type = "text" placeholder="Protein in grams" />
+            <input type = "number" placeholder="Protein in grams" />
           </label>
           <label htmlFor = "fat">
             Fat: 
-            <input type = "text" placeholder="Fat in grams" />
+            <input type = "number" placeholder="Fat in grams" />
           </label>
           <label htmlFor = "carbs">
             Carbs: 
-            <input type = "text" placeholder="Carbs in grams" />
+            <input type = "number" placeholder="Carbs in grams" />
           </label>
           <button className = "bg-blue-400 rounded-2xl py-4 cursor-pointer text-white">
             Submit
           </button>
         </form>
+        <pre>{test}</pre>
       </div>
     </div>
     </>
