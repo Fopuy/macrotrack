@@ -3,10 +3,10 @@ import {useState} from 'react'
 export function App (){
   //const [test, setTest]=useState('');
   const [name, setName] = useState('');
-  const [calories, setCalories] = useState(0);
-  const [protein, setProtein] = useState(0);
-  const [fat, setFat] = useState(0);
-  const [carbs, setCarbs] = useState(0);
+  const [calories, setCalories] = useState('');
+  const [protein, setProtein] = useState('');
+  const [fat, setFat] = useState('');
+  const [carbs, setCarbs] = useState('');
 
   const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -15,6 +15,10 @@ export function App (){
     });
     const data = await res.json();
     setTest(JSON.stringify(data, null, 2)); */
+    const caloriesNum = parseInt(calories)
+    const proteinNum = parseInt(protein)
+    const fatNum = parseInt(fat)
+    const carbsNum = parseInt(carbs)
     const res = await fetch('http://localhost:3000/api/addmeal', {
       method:"POST",
       headers: {
@@ -22,14 +26,19 @@ export function App (){
       },
       body: JSON.stringify({
         name,
-        calories,
-        protein,
-        fat,
-        carbs
+        caloriesNum,
+        proteinNum,
+        fatNum,
+        carbsNum
       })})
       console.log({name, calories, protein, fat, carbs});
     const data = await res.json();
     console.log(data);
+    setName('')
+    setCalories('')
+    setProtein('')
+    setFat('')
+    setCarbs('')
     }
 
   return (
@@ -40,23 +49,48 @@ export function App (){
         <form className = "flex flex-col space-y-2" onSubmit={handleSubmit}>
           <label htmlFor = "meal">
             Meal: 
-            <input id="meal" type = "text" placeholder="Food" onChange={((e)=>setName(e.target.value))}/>
+            <input 
+              value={name} 
+              id="meal" 
+              type = "text" 
+              placeholder="Food" 
+              onChange={((e)=>setName(e.target.value))}/>
           </label>
           <label htmlFor = "calories">
             Calories: 
-            <input id="calories" type = "number" placeholder="Calories in grams" onChange={(e)=>setCalories(parseInt(e.target.value))}/>
+            <input 
+              value={calories}
+              id="calories" 
+              type = "number" 
+              placeholder="Calories in grams" 
+              onChange={(e)=>setCalories(e.target.value)}/>
           </label>
           <label htmlFor = "protein">
             Protein:
-            <input id ="protein" type = "number" placeholder="Protein in grams" onChange={(e)=>setProtein(parseInt(e.target.value))}/>
+            <input 
+              value={protein}
+              id ="protein" 
+              type = "number" 
+              placeholder="Protein in grams" 
+              onChange={(e)=>setProtein(e.target.value)}/>
           </label>
           <label htmlFor = "fat">
             Fat: 
-            <input id="fat" type = "number" placeholder="Fat in grams" onChange={(e)=>setFat(parseInt(e.target.value))}/>
+            <input 
+              value={fat}
+              id="fat" 
+              type = "number" 
+              placeholder="Fat in grams" 
+              onChange={(e)=>setFat(e.target.value)}/>
           </label>
           <label htmlFor = "carbs">
             Carbs: 
-            <input id="carbs" type = "number" placeholder="Carbs in grams" onChange={(e)=>setCarbs(parseInt(e.target.value))}/>
+            <input 
+              value={carbs}
+              id="carbs" 
+              type = "number" 
+              placeholder="Carbs in grams" 
+              onChange={(e)=>setCarbs(e.target.value)}/>
           </label>
           <button className = "bg-blue-400 rounded-2xl py-4 cursor-pointer text-white">
             Submit
