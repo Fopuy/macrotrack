@@ -1,20 +1,33 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
 export function App (){
-  //const [test, setTest]=useState('');
+  type Meal = {
+    name: string;
+    calories: number;
+    protein: number;
+    fat: number;
+    carbs: number;
+  };
   const [name, setName] = useState('');
   const [calories, setCalories] = useState('');
   const [protein, setProtein] = useState('');
   const [fat, setFat] = useState('');
   const [carbs, setCarbs] = useState('');
+  const [meal, setMeal] = useState<Meal[]>([]);
 
-  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    /* const res = await fetch('http://localhost:3000/api/index', {
+  useEffect(() => {
+    const fetchMeal = async () => {
+    const res = await fetch('http://localhost:3000/api/index', {
       method: "GET",
     });
     const data = await res.json();
-    setTest(JSON.stringify(data, null, 2)); */
+    setMeal(data);
+  }
+    fetchMeal();
+  },[])
+
+  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const caloriesNum = parseInt(calories)
     const proteinNum = parseInt(protein)
     const fatNum = parseInt(fat)
@@ -46,6 +59,7 @@ export function App (){
     <div className = "flex justify-center h-full">
       <div className = "border flex flex-col justify-center max-w-3/4 items-center w-full h-full">
         <h1 className="text-4xl py-4">MacroTracker</h1>
+        <p>{JSON.stringify(meal)}</p>
         <form className = "flex flex-col space-y-2" onSubmit={handleSubmit}>
           <label htmlFor = "meal">
             Meal: 
