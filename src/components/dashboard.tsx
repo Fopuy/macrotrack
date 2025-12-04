@@ -1,25 +1,54 @@
+import {useEffect, useState} from "react";
+import { ProgressBar } from "./circleProgressBar";
+
 export function Dashboard() {
+    type Meal = {
+    name: string;
+    calories: number;
+    protein: number;
+    fat: number;
+    carbs: number;
+    };
+
+    const [meal, setMeal] = useState<Meal[]>([]);
+
+    useEffect(() => {
+        const fetchMeal = async () => {
+        const res = await fetch('http://localhost:3000/api/index', {
+        method: "GET",
+        });
+        const data = await res.json();
+        setMeal(data);
+    }
+        fetchMeal();
+    },[])
+
+    const dailyCalories = meal.reduce((total: number, meal: Meal) => total + meal.calories, 0);
+    const dailyProtein = meal.reduce((total: number, meal: Meal) => total + meal.protein, 0);
+    const dailyFat = meal.reduce((total: number, meal: Meal) => total + meal.fat, 0);
+    const dailyCarbs = meal.reduce((total: number, meal: Meal) => total + meal.carbs, 0);
+
     return (
         <>
         <div className = "bg-gray-50 min-h-screen">
             <div className = "mx-auto px-4 py-8 max-w-md">
                 <section className = "not-even:mb-8">
                     <h1 className="text-2xl font-bold tex-gray-800 mb-6">Today's Nutrition</h1>
-                    
+                    <ProgressBar dailyCalories={dailyCalories}/>
                     <div className="grid grid-cols-3 gap-4 mb-6">
                         <div className="bg-white p-4 rounded-xl shadow-sm text-center">
                             <div className="font-semibold mb-1">Protein:</div>
-                            <div className="text-2xl font-bold text-gray-800">145g</div>
+                            <div className="text-2xl font-bold text-gray-800">{dailyProtein}</div>
                             <div className="text-xs text-gray-500">58% of goal</div>
                         </div>
                         <div className="bg-white p-4 rounded-xl shadow-sm text-center">
                             <div className="text-primary-500 font-semibold mb-1">Carbs</div>
-                            <div className="text-2xl font-bold text-gray-800">210g</div>
+                            <div className="text-2xl font-bold text-gray-800">{dailyCarbs}</div>
                             <div className="text-xs text-gray-500">75% of goal</div>
                         </div>
                         <div className="bg-white p-4 rounded-xl shadow-sm text-center">
                             <div className="text-primary-500 font-semibold mb-1">Fat</div>
-                            <div className="text-2xl font-bold text-gray-800">65g</div>
+                            <div className="text-2xl font-bold text-gray-800">{dailyFat}</div>
                             <div className="text-xs text-gray-500">72% of goal</div>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-export function ProgressBar(){
+export function ProgressBar({dailyCalories}: {dailyCalories?: number}) {
     return(
         <>
             <div className="relative w-64 h-64 mx-auto mb-8">
@@ -18,7 +18,7 @@ export function ProgressBar(){
                     </defs>
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                        <span className="text-3xl font-bold text-gray-800">1,850</span>
+                        <span className="text-3xl font-bold text-gray-800">{dailyCalories}</span>
                         <span className="text-gray-500">kcal</span>
                 </div>
             </div>
