@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import { ProgressBar } from "./circleProgressBar";
+import { RecentMeals } from "./recentMeals";
 
 export function Dashboard() {
     type Meal = {
@@ -42,14 +43,14 @@ export function Dashboard() {
                             <div className="text-xs text-gray-500">58% of goal</div>
                         </div>
                         <div className="bg-white p-4 rounded-xl shadow-sm text-center">
-                            <div className="text-primary-500 font-semibold mb-1">Carbs</div>
-                            <div className="text-2xl font-bold text-gray-800">{dailyCarbs}</div>
-                            <div className="text-xs text-gray-500">75% of goal</div>
-                        </div>
-                        <div className="bg-white p-4 rounded-xl shadow-sm text-center">
-                            <div className="text-primary-500 font-semibold mb-1">Fat</div>
+                            <div className="text-primary-500 font-semibold mb-1">Fat:</div>
                             <div className="text-2xl font-bold text-gray-800">{dailyFat}</div>
                             <div className="text-xs text-gray-500">72% of goal</div>
+                        </div>
+                        <div className="bg-white p-4 rounded-xl shadow-sm text-center">
+                            <div className="text-primary-500 font-semibold mb-1">Carbs:</div>
+                            <div className="text-2xl font-bold text-gray-800">{dailyCarbs}</div>
+                            <div className="text-xs text-gray-500">75% of goal</div>
                         </div>
                     </div>
                     <div className="bg-white p-4 rounded-xl shadow-sm mb-6">
@@ -66,6 +67,10 @@ export function Dashboard() {
                             <div className="bg-linear-to-r from-primary-500 to-secondary-500 h-2 rounded-full"></div>
                         </div>
                     </div>
+                </section>
+                <section>
+                    <h2 className="text-xl font-bold text-gray-800 mb-4">Recent Meals</h2>
+                    <RecentMeals meal={meal}/>
                 </section>
             </div>
         </div>
