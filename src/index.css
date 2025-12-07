@@ -8,3 +8,31 @@ html, body, #root {
 ::-webkit-inner-spin-button{
   appearance:none
 }
+
+button, a {
+    transition: all 0.2s ease;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
+
+/* Custom focus styles for better accessibility */
+input:focus, select:focus, textarea:focus, button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
+}
